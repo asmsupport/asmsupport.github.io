@@ -9,7 +9,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="Date-Revision-yyyymmdd" content="20150516" />
     <meta http-equiv="Content-Language" content="en" />
-    <title>ASMSupport 0.4.1 - Document &#x2013; 如何查看log文件内容</title>
+    <title>ASMSupport 0.4.1 - Document &#x2013; Release Note</title>
     <link rel="stylesheet" href="../css/apache-maven-fluido-1.3.1.min.css" />
     <link rel="stylesheet" href="../css/site.css" />
     <link rel="stylesheet" href="../css/print.css" media="print" />
@@ -66,12 +66,10 @@
         简介</a>
             </li>
                 
-      <li>
+      <li class="active">
   
-                          <a href="../summary/release-note.html" title="Release Note">
-          <i class="none"></i>
-        Release Note</a>
-            </li>
+            <a href="#"><i class="none"></i>Release Note</a>
+          </li>
                               <li class="nav-header">使用手册</li>
                                                                           
       <li>
@@ -155,10 +153,12 @@
               </ul>
         </li>
                 
-      <li class="active">
+      <li>
   
-            <a href="#"><i class="none"></i>如何查看Log日志</a>
-          </li>
+                          <a href="../manual/seeLog.html" title="如何查看Log日志">
+          <i class="none"></i>
+        如何查看Log日志</a>
+            </li>
                               <li class="nav-header">字节码相关</li>
                               
       <li>
@@ -245,53 +245,35 @@
                 
         <div id="bodyColumn"  class="span9" >
                                   
-            <h1>&#x5982;&#x4f55;&#x67e5;&#x770b;log&#x6587;&#x4ef6;&#x5185;&#x5bb9;</h1>
+            <h1>Release Note</h1>
+<div class="section">
+<h2><a name="a0.4.1"></a>0.4.1</h2>
+<div class="section">
+<h3><a name="a1._"></a>1. &#x652f;&#x6301;&#x65b9;&#x6cd5;&#x7684;&#x94fe;&#x5f0f;&#x8c03;&#x7528;</h3>
+<p>java&#x4ee3;&#x7801;&#xff1a;</p>
 
 <div class="source">
 <div class="source">
-<pre>[ASMSupport-Info] create method: ------------main([Ljava/lang/String;)            //&#x8fd9;&#x91cc;&#x8868;&#x793a;&#x5f00;&#x59cb;&#x521b;&#x5efa;main(String[])&#x65b9;&#x6cd5;
-[ASMSupport-Info] call method by variable :out                                    //&#x8fd9;&#x91cc;&#x8868;&#x793a;&#x8c03;&#x7528;&#x4e86;out&#x53d8;&#x91cf;&#x7684;&#x65b9;&#x6cd5;
-[ASMSupport-Info] put variable reference to stack                                 //&#x65e2;&#x7136;&#x8981;&#x8c03;&#x7528;out&#x53d8;&#x91cf;&#x7684;&#x65b9;&#x6cd5;&#x5c31;&#x9700;&#x8981;&#x5c06;out&#x53d8;&#x91cf;&#x7684;&#x5f15;&#x7528;&#x538b;&#x5165;&#x6808;
-[ASMSupport-Info] get field out from class java.lang.System and push to stack!    //&#x901a;&#x8fc7;&#x8fd9;&#x53e5;&#x8bdd;&#x5c31;&#x80fd;&#x660e;&#x767d;&#x539f;&#x6765;&#x662f;&#x8c03;&#x7528;&#x6211;&#x4eec;&#x6700;&#x5e38;&#x89c1;&#x7684;System.out
-[ASMSupport-Info] Instruction : GETSTATIC                                         //&#x8868;&#x6267;&#x884c;JVM&#x6307;&#x4ee4;GETSTATIC(&#x56e0;&#x4e3a;out&#x662f;static&#x7c7b;&#x578b;&#x7684;&#x6240;&#x4ee5;&#x8fd9;&#x91cc;&#x8c03;&#x7528;GETSTATIC&#x6307;&#x4ee4;&#x83b7;&#x53d6;out)
-[ASMSupport-Info] Stack states                                                    //&#x63a5;&#x4e0b;&#x6765;&#x8fd9;&#x4e2a;&#x56fe;&#x8868;&#x8868;&#x793a;&#x7684;&#x662f;&#x6808;&#x7684;&#x6a21;&#x578b;,&#x4e0a;&#x9762;GETSTATIC&#x6267;&#x884c;&#x7684;&#x7ed3;&#x679c;&#x5c31;&#x662f;&#x8fd4;&#x56de;&#x4e00;&#x4e2a;&#x9759;&#x6001;field&#x5e76;&#x4e14;&#x538b;&#x5165;&#x6808;
-*********************************
-|         |Type                 |
-********************************
-| ____    |Ljava/io/PrintStream;|
-|/ ___|   |                     |
-|\___ \   |                     |
-| ___) |  |                     |
-||____/   |                     |
-*********************************
-.....
-[ASMSupport-Info] store to local variable
-[ASMSupport-Info] local variables states                //&#x4e0b;&#x9762;&#x8fd9;&#x4e2a;&#x56fe;&#x8868;&#x662f;&#x672c;&#x5730;&#x53d8;&#x91cf;&#x7684;&#x6a21;&#x578b;&#xff0c;&#x901a;&#x8fc7;&#x56fe;&#x5df2;&#x7ecf;&#x770b;&#x51fa;&#x5df2;&#x7ecf;&#x5b58;&#x653e;&#x4e86;&#x4e24;&#x4e2a;&#x672c;&#x5730;&#x53d8;&#x91cf;&#xff0c;&#x90a3;&#x4ed6;&#x4eec;&#x5206;&#x522b;&#x8868;&#x793a;&#x4ec0;&#x4e48;&#x5462;
-************************************************
-|         |Type                 |Name |Fragment|
-************************************************
-| _       |[Ljava/lang/String;  |args |false   |   //[Ljava/lang/String;&#x7c7b;&#x578b;&#x4e0d;&#x5c31;&#x662f;&#x4e0a;&#x9762;&#x65b9;&#x6cd5;&#x7684;&#x53c2;&#x6570;&#x7c7b;&#x578b;&#x5417;&#x3002;&#x6ca1;&#x9519;&#xff0c;&#x8fd9;&#x91cc;&#x5b58;&#x653e;&#x7684;&#x5c31;&#x662f;&#x6211;&#x4eec;&#x65b9;&#x6cd5;&#x7684;&#x53c2;&#x6570;&#x3002;
-|| |      |Ljava/io/PrintStream;|myOut|false   |   //&#x8fd9;&#x91cc;&#x5b58;&#x653e;&#x7684;&#x5c31;&#x662f;&#x4e0a;&#x9762;&#x6808;&#x4e2d;&#x7684;out&#xff0c;&#x662f;&#x5982;&#x4f55;&#x5b58;&#x7684;&#x5462;&#xff0c;&#x7ee7;&#x7eed;&#x5f80;&#x4e0b;&#x770b;
-|| |      |                     |     |        |
-|| |___   |                     |     |        |
-||_____|  |                     |     |        |
-|         |                     |     |        |
-************************************************
-[ASMSupport-Info] Instruction : ASTORE                  //&#x627e;&#x5230;&#x4e86;&#xff0c;&#x5c31;&#x662f;&#x8fd9;&#x4e2a;&#x6307;&#x4ee4;ASTORE&#x3002;&#x5b83;&#x5c31;&#x662f;&#x8d1f;&#x8d23;&#x628a;&#x6808;&#x9876;&#x5143;&#x7d20;&#x5f39;&#x51fa;&#x5728;&#x7136;&#x540e;&#x5b58;&#x5230;&#x672c;&#x5730;&#x53d8;&#x91cf;&#x7684;&#x3002;
-[ASMSupport-Info] Stack states                          //&#x5f80;&#x4e0b;&#x770b; &#x53d1;&#x73b0;&#x6808;&#x91cc;&#x9762;&#x6ca1;&#x4e1c;&#x897f;&#x4e86;&#x5427;&#xff0c;&#x8ba9;ASTORE&#x7ed9;&#x62ff;&#x5230;local variables&#x91cc;&#x53bb;&#x4e86;
-****************
-|         |Type|
-****************
-| ____    |    |
-|/ ___|   |    |
-|\___ \   |    |
-| ___) |  |    |
-||____/   |    |
-****************
-.....
-[ASMSupport-Info] Method : main([Ljava/lang/String;) Maxs(stack:1 locals:2) //&#x8fd9;&#x91cc;&#x503c;&#x5206;&#x914d;&#x7ed9;&#x6808;&#x548c;&#x672c;&#x5730;&#x53d8;&#x91cf;&#x7684;&#x6700;&#x5927;&#x503c;&#xff0c;&#x901a;&#x8fc7;&#x4e0a;&#x9762;&#x7684;&#x56fe;&#x5c31;&#x80fd;&#x770b;&#x5230;&#x6808;&#x548c;&#x672c;&#x5730;&#x53d8;&#x91cf;&#x7684;&#x6700;&#x5927;&#x503c;&#x662f;&#x591a;&#x5c11;&#x4e86;&#x3002;
+<pre>String message = new StringBuilder().append(&quot;Hello ASMSupport&quot;)
 </pre></div></div>
-<p>&#x5f53;&#x7136;&#xff0c;&#x8fd9;&#x4e9b;log&#x662f;&#x9700;&#x8981;&#x4f60;&#x5bf9;jvm&#x5b57;&#x8282;&#x7801;&#x6709;&#x4e00;&#x5b9a;&#x4e86;&#x89e3;&#x7684;&#x624d;&#x80fd;&#x770b;&#x660e;&#x767d;&#x3002;&#x8fd9;&#x4e2a;&#x7ed9;&#x4e2a;&#x7f51;&#x5740;&#x53ef;&#x4ee5;&#x53c2;&#x7167;&#xff1a;<a href="../jvmref/opcodes.html">Bytecode Reference.</a></p>
+<p>&#x8001;&#x7248;&#x672c;&#xff1a;</p>
+
+<div class="source">
+<div class="source">
+<pre>Var message = var(&quot;message&quot;, StringBuilder.class, call(new_(StringBuilder.class), &quot;append&quot;, val(&quot;Hello, ASMSupport&quot;)))
+</pre></div></div>
+<p>&#x65b0;&#x7248;&#x672c;&#xff1a;</p>
+
+<div class="source">
+<div class="source">
+<pre>Var message = _new(StringBuilder.class).call(&quot;append&quot;, val(&quot;Hello, ASMSupport&quot;)).asVar(&quot;String&quot;, StringBuilder.class)
+</pre></div></div></div>
+<div class="section">
+<h3><a name="a2._jls_4.10"></a>2. &#x5e95;&#x5c42;&#x652f;&#x6301;jls 4.10&#x652f;&#x6301;</h3></div>
+<div class="section">
+<h3><a name="a3._"></a>3. &#x6dfb;&#x52a0;&#x90e8;&#x5206;&#x63a5;&#x53e3;</h3></div>
+<div class="section">
+<h3><a name="a4._Bug"></a>4. &#x4fee;&#x590d;Bug</h3></div></div>
                   </div>
             </div>
           </div>
