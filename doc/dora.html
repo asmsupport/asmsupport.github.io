@@ -18,13 +18,19 @@
 </head>
 
 <body>
-    本金:&nbsp; <input id="principal" value="10000" /> 
-    溢价:&nbsp; <input id="premium" value="3000" /> 
-    收益:&nbsp; <input id="rate" value="0.23" />/棵树
-    使用礼金卡:&nbsp; <input id="useCard" type="checkbox" value="yes"/>
-    <hr/> 年化收益:&nbsp;
+    本金:&nbsp;
+    <input id="principal" value="10000" /> 溢价:&nbsp;
+    <input id="premium" value="3000" /> 收益:&nbsp;
+    <input id="rate" value="0.23" />/棵树 能量系:&nbsp;
+    <select id="energy">
+        <option value="1">100%</option>
+        <option value="0.5">50%</option>
+        <option value="0.25">25%</option>
+    </select>
+    <hr/> 理财年化收益:&nbsp;
     <input id="annualRate" value="4.00" />%
     <input type="button" id="calculate" value="计算" />
+    <div id="comment"></div>
     <div id="mountNode"></div>
     <script>/*Fixing iframe window.innerHeight 0 issue in Safari*/document.body.clientHeight;</script>
     <script src="https://gw.alipayobjects.com/os/antv/assets/g2/3.0.5-beta.5/g2.min.js"></script>
@@ -32,11 +38,9 @@
     <script src="https://gw.alipayobjects.com/os/antv/assets/lib/jquery-3.2.1.min.js"></script>
     <script>
         $("#calculate").on('click', function () {
-            const principal = parseInt($("#principal").val(), 10)
-            let tree = parseInt(principal / 100, 10);
-            if($("#useCard").is(':checked')) {
-                tree *= 2
-            }
+            const principal = parseFloat($("#principal").val())
+            const premium = parseFloat($("#premium").val()) 
+            let tree = parseInt(principal * parseFloat($("#energy").val()) / 100, 10);
             const rate = parseFloat($("#rate").val())
             const annualRate = parseFloat($("#annualRate").val()) / 100
             const incomes = []
@@ -44,6 +48,7 @@
             let totalIncome = 0;
             let days = 0;
             let financeIncome = 0;
+            let safeDay = undefined;
             while (cuts < tree) {
                 const interest = rate * (tree - cuts);
                 totalIncome += interest;
@@ -51,6 +56,9 @@
                 const financeInterest = (annualRate * (financeIncome + principal) / 365)
                 financeIncome += financeInterest
                 days++
+                if(totalIncome >= premium && safeDay === undefined) {
+                    safeDay = days
+                } 
                 incomes.push({
                     day: days,
                     type: "Dora日收益",
@@ -75,10 +83,11 @@
             if (window.chart) {
                 window.chart.destroy();
             }
+            $("#comment").html("<p>收回溢价时间点为第" + safeDay + "天</p>")
             const chart = new G2.Chart({
                 container: 'mountNode',
                 forceFit: true,
-                height: window.innerHeight - 100
+                height: window.innerHeight - 300
             });
             window.chart = chart;
             chart.source(incomes, {
