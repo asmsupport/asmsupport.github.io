@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,height=device-height">
+    <title>Dora Compute</title>
+    <style>
+        ::-webkit-scrollbar {
+            display: none;
+        }
+
+        html,
+        body {
+            overflow: hidden;
+            height: 100%;
+        }
+    </style>
+</head>
+
+<body>
+    本金:&nbsp; <input id="principal" value="10000" /> 
+    溢价:&nbsp; <input id="premium" value="3000" /> 
+    收益:&nbsp; <input id="rate" value="0.23" />/棵树
+    使用礼金卡:&nbsp; <input id="useCard" type="checkbox" value="yes"/>
+    <hr/> 年化收益:&nbsp;
+    <input id="annualRate" value="4.00" />%
+    <input type="button" id="calculate" value="计算" />
+    <div id="mountNode"></div>
+    <script>/*Fixing iframe window.innerHeight 0 issue in Safari*/document.body.clientHeight;</script>
+    <script src="https://gw.alipayobjects.com/os/antv/assets/g2/3.0.5-beta.5/g2.min.js"></script>
+    <script src="https://gw.alipayobjects.com/os/antv/assets/data-set/0.8.5/data-set.min.js"></script>
+    <script src="https://gw.alipayobjects.com/os/antv/assets/lib/jquery-3.2.1.min.js"></script>
+    <script>
+        $("#calculate").on('click', function () {
+            const principal = parseInt($("#principal").val(), 10)
+            let tree = parseInt(principal / 100, 10);
+            if($("#useCard").is(':checked')) {
+                tree *= 2
+            }
+            const rate = parseFloat($("#rate").val())
+            const annualRate = parseFloat($("#annualRate").val()) / 100
+            const incomes = []
+            let cuts = 0;
+            let totalIncome = 0;
+            let days = 0;
+            let financeIncome = 0;
+            while (cuts < tree) {
+                const interest = rate * (tree - cuts);
+                totalIncome += interest;
+                cuts = parseInt(totalIncome / 99, 10);
+                const financeInterest = (annualRate * (financeIncome + principal) / 365)
+                financeIncome += financeInterest
+                days++
+                incomes.push({
+                    day: days,
+                    type: "Dora日收益",
+                    value: interest
+                });
+                incomes.push({
+                    day: days,
+                    type: "Dora总收益",
+                    value: totalIncome
+                });
+                incomes.push({
+                    day: days,
+                    type: "理财日收益",
+                    value: financeInterest
+                });
+                incomes.push({
+                    day: days,
+                    type: "理财总收益",
+                    value: financeIncome
+                });
+            }
+            if (window.chart) {
+                window.chart.destroy();
+            }
+            const chart = new G2.Chart({
+                container: 'mountNode',
+                forceFit: true,
+                height: window.innerHeight - 100
+            });
+            window.chart = chart;
+            chart.source(incomes, {
+                day: {
+                    type: 'linear',
+                    tickInterval: 50
+                }
+            });
+            chart.tooltip({
+                crosshairs: {
+                    type: 'line'
+                }
+            });
+            chart.areaStack().position('day*value').color('type');
+            chart.lineStack().position('day*value').color('type').size(2);
+            chart.render();
+        })
+    </script>
+</body>
+
+</html>
