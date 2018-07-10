@@ -21,14 +21,14 @@
     本金:&nbsp;
     <input id="principal" value="10000" /> 溢价:&nbsp;
     <input id="premium" value="3000" /> 收益:&nbsp;
-    <input id="rate" value="0.23" />/棵树 能量系:&nbsp;
+    <input id="rate" value="0.09" />/棵树 能量系:&nbsp;
     <select id="energy">
         <option value="1">100%</option>
         <option value="0.5">50%</option>
         <option value="0.25">25%</option>
     </select>
-    <hr/> 理财年化收益:&nbsp;
-    <input id="annualRate" value="4.00" />%
+    <!--<hr/> 理财年化收益:&nbsp;-->
+    <input id="annualRate" value="4.00" style="display:none" />%
     <input type="button" id="calculate" value="计算" />
     <div id="comment"></div>
     <div id="mountNode"></div>
@@ -69,7 +69,7 @@
                     type: "Dora总收益",
                     value: totalIncome
                 });
-                incomes.push({
+                /*incomes.push({
                     day: days,
                     type: "理财日收益",
                     value: financeInterest
@@ -78,7 +78,7 @@
                     day: days,
                     type: "理财总收益",
                     value: financeIncome
-                });
+                });*/
             }
             if (window.chart) {
                 window.chart.destroy();
